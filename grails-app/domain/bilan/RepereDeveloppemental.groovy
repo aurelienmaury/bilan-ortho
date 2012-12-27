@@ -2,9 +2,9 @@ package bilan
 
 class RepereDeveloppemental {
 
-    Integer debut
+    Integer ageDebut
 
-    Integer fin
+    Integer ageFin
 
     String description
 

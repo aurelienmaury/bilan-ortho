@@ -10,10 +10,32 @@ class FicheOrthoController {
         redirect(action: "list", params: params)
     }
 
-    def list(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        [ficheOrthoInstanceList: FicheOrtho.list(params), ficheOrthoInstanceTotal: FicheOrtho.count()]
+    def search() {
+
     }
+
+    def list(Integer max) {
+        if (params.ans || params.mois) {
+            Integer mois = 0
+
+            if (params.mois) {
+                mois += params.mois as Integer
+            }
+
+            if (params.ans) {
+                mois += (params.ans as Integer) * 12
+            }
+
+            println "searching for mois = $mois"
+
+            [ficheOrthoInstanceList: FicheOrtho.findByAgeDebutLessThanEqualsAndAgeFinGreaterThanEquals(mois, mois), ficheOrthoInstanceTotal: FicheOrtho.count()]
+        } else {
+            params.max = Math.min(max ?: 10, 100)
+            [ficheOrthoInstanceList: FicheOrtho.list(params), ficheOrthoInstanceTotal: FicheOrtho.count()]
+        }
+    }
+
+
 
     def create() {
         [ficheOrthoInstance: new FicheOrtho(params)]

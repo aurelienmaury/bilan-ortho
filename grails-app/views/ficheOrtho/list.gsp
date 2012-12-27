@@ -8,19 +8,29 @@
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<a href="#list-ficheOrtho" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-			</ul>
-		</div>
-		<div id="list-ficheOrtho" class="content scaffold-list" role="main">
+
+
+    <div class="row-fluid">
+        <div class="span3">
+            <div class="well sidebar-nav">
+                <ul class="nav nav-list">
+                    <li class="nav-header">Actions</li>
+                    <li><g:link action="search">Rechercher</g:link></li>
+                    <li class="active"><g:link action="list">List</g:link> </li>
+                    <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+                </ul>
+            </div>
+        </div>
+
+
+
+
+		<div class="span9">
 			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<table>
+			<table class="table table-striped table-bordered">
 				<thead>
 					<tr>
 					
@@ -29,13 +39,9 @@
 						<g:sortableColumn property="ageDebut" title="${message(code: 'ficheOrtho.ageDebut.label', default: 'Age Debut')}" />
 					
 						<g:sortableColumn property="ageFin" title="${message(code: 'ficheOrtho.ageFin.label', default: 'Age Fin')}" />
-					
-						<g:sortableColumn property="passationTxt" title="${message(code: 'ficheOrtho.passationTxt.label', default: 'Passation Txt')}" />
-					
-						<g:sortableColumn property="cotationTxt" title="${message(code: 'ficheOrtho.cotationTxt.label', default: 'Cotation Txt')}" />
-					
-						<g:sortableColumn property="seuilPathoTxt" title="${message(code: 'ficheOrtho.seuilPathoTxt.label', default: 'Seuil Patho Txt')}" />
-					
+
+                        <th>Domaines</th>
+
 					</tr>
 				</thead>
 				<tbody>
@@ -47,13 +53,9 @@
 						<td>${fieldValue(bean: ficheOrthoInstance, field: "ageDebut")}</td>
 					
 						<td>${fieldValue(bean: ficheOrthoInstance, field: "ageFin")}</td>
-					
-						<td>${fieldValue(bean: ficheOrthoInstance, field: "passationTxt")}</td>
-					
-						<td>${fieldValue(bean: ficheOrthoInstance, field: "cotationTxt")}</td>
-					
-						<td>${fieldValue(bean: ficheOrthoInstance, field: "seuilPathoTxt")}</td>
-					
+
+                        <td>${ficheOrthoInstance.domaines*.nom.sort().join(', ')}</td>
+
 					</tr>
 				</g:each>
 				</tbody>

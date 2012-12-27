@@ -37,7 +37,7 @@
 					<span id="fiches-label" class="property-label"><g:message code="domaineOrtho.fiches.label" default="Fiches" /></span>
 					
 						<g:each in="${domaineOrthoInstance.fiches}" var="f">
-						<span class="property-value" aria-labelledby="fiches-label"><g:link controller="ficheOrtho" action="show" id="${f.id}">${f?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="fiches-label"><g:link controller="ficheOrtho" action="show" id="${f.id}">${f?.titre}</g:link></span>
 						</g:each>
 					
 				</li>
