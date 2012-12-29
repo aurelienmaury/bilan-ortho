@@ -9,17 +9,8 @@
 
 <body>
 <div class="row-fluid">
-    <div class="span3">
-        <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-                <li class="nav-header">Actions</li>
-                <li><g:link action="search">Rechercher</g:link></li>
-                <li><g:link action="list">List</g:link></li>
-                <li><g:link class="create" action="create"><g:message code="default.new.label"
-                                                                      args="[entityName]"/></g:link></li>
-            </ul>
-        </div>
-    </div>
+
+    <g:render template="navbar"/>
 
     <div class="span9">
 
