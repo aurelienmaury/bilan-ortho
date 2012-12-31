@@ -15,6 +15,15 @@ class RepereDeveloppementalController {
         [repereDeveloppementalInstanceList: RepereDeveloppemental.list(params), repereDeveloppementalInstanceTotal: RepereDeveloppemental.count()]
     }
 
+    def diag() {
+        println "diag"
+        params.criteres?.each {
+            println "critere : ${it.desc} - ${it.age}"
+        }
+
+
+    }
+
     def create() {
         [repereDeveloppementalInstance: new RepereDeveloppemental(params)]
     }
