@@ -27,26 +27,51 @@
         </g:hasErrors>
         <g:form action="diag">
             <fieldset class="form">
-                <div>
-                    <label for="ans">
-                        Ans
-                    </label>
-                    <g:textField name="criteres.desc"/>
-                </div>
 
-                <div>
-                    <label for="mois">
-                        Mois
-                    </label>
-                    <g:field name="criteres.age" type="number" min="0"/>
-                </div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Age d'apparition</th>
+                        <th>Standards</th>
+                    </tr>
+                    </thead>
+                    <tbody id="bodyForm">
+                    <g:each in="${criteres}" var="critere">
+                        <tr>
+                            <td>
+                                <g:textField name="desc" value="${critere.desc}"/>
+                            </td>
+                            <td>
+                                <g:field name="age" type="number" min="0" value="${critere.age}"/>
+                            </td>
+                            <td>
+                                <g:if test="${critere.ok}">OK</g:if>
+                                ${critere.msg}
+                            </td>
+                        </tr>
+                    </g:each>
+                    </tbody>
+                </table>
+
             </fieldset>
             <hr/>
             <fieldset>
+                <a id="plus" class="btn btn-success">Plus</a>
                 <g:submitButton name="diag" class="btn btn-primary" value="Rechercher"/>
             </fieldset>
         </g:form>
     </div>
 </div>
+
+<r:script>
+    $(function () {
+        $('#plus').click(function () {
+            $('#bodyForm').append('<tr><td><input type="text" name="desc"/><td><input type="number" name="age"/></td><td></td></tr>');
+        });
+    });
+
+</r:script>
+
 </body>
 </html>

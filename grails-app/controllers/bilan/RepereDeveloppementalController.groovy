@@ -16,12 +16,35 @@ class RepereDeveloppementalController {
     }
 
     def diag() {
-        println "diag"
-        params.criteres?.each {
-            println "critere : ${it.desc} - ${it.age}"
+
+        int nbCritere = params.desc ? params.desc.size() : 0
+
+        if (nbCritere) {
+            def criteresRes = [criteres: []]
+
+            def description = []
+            description.addAll(params.desc)
+            def age = []
+            age.addAll(params.age)
+
+            println "desc = $description"
+            println "age = $age"
+            nbCritere.times { i ->
+
+                def repere = RepereDeveloppemental.findByDescriptionIlike("%${description[i]}%")
+
+                if (repere) {
+                    println "found $repere"
+                    if (repere.ageDebut <= age[i].toInteger() && age[i].toInteger() <= repere.ageFin) {
+                        criteresRes.criteres << [desc: repere.description, age: age[i].toInteger(), ok: true, msg: "de X a Y ans"]
+                    } else {
+                        criteresRes.criteres << [desc: repere.description, age: age[i].toInteger(), ok: false, msg: "de X a Y ans"]
+                    }
+                }
+            }
+
+            criteresRes
         }
-
-
     }
 
     def create() {
@@ -72,8 +95,8 @@ class RepereDeveloppementalController {
         if (version != null) {
             if (repereDeveloppementalInstance.version > version) {
                 repereDeveloppementalInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                          [message(code: 'repereDeveloppemental.label', default: 'RepereDeveloppemental')] as Object[],
-                          "Another user has updated this RepereDeveloppemental while you were editing")
+                        [message(code: 'repereDeveloppemental.label', default: 'RepereDeveloppemental')] as Object[],
+                        "Another user has updated this RepereDeveloppemental while you were editing")
                 render(view: "edit", model: [repereDeveloppementalInstance: repereDeveloppementalInstance])
                 return
             }
